@@ -41,6 +41,26 @@ class Browser
   include Tv
   include Proxy
 
+
+
+	class << self
+		mattr_accessor :bots
+		mattr_accessor :bot_exceptions
+		mattr_accessor :search_engines
+
+		root = Pathname.new(File.expand_path("../..", __FILE__))
+
+		self.bots = YAML.load_file(root.join("bots.yml"))
+		self.bot_exceptions = YAML.load_file(root.join("bot_exceptions.yml"))
+		self.search_engines = YAML.load_file(root.join("search_engines.yml"))
+
+	end
+
+	# this function maps the vars from your app into your engine
+	def self.configure( &block )
+		yield self
+	end
+
   # Set browser's UA string.
   attr_accessor :user_agent
   alias_method :ua, :user_agent

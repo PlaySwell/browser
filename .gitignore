@@ -3,3 +3,6 @@ coverage
 doc
 log
 *.lock
+.env
+/.idea
+/.idea/*
